@@ -158,3 +158,4 @@ All styling uses CSS custom properties in `globals.css`:
 ## License
 
 MIT — Built with ❤️ by Kunal Yelgate
+# my_profile
