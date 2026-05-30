@@ -23,7 +23,7 @@ A retro RPG-themed developer portfolio built with **Next.js 14 App Router** + Re
 | CSS3 | Custom properties, grid, flexbox, animations |
 | Google Fonts | Press Start 2P (pixel), Inter (body), JetBrains Mono (code) |
 
-## Project Structure (App Router)
+## Profile Structure (App Router)
 
 ```
 kunal-portfolio-nextjs/
@@ -51,39 +51,6 @@ kunal-portfolio-nextjs/
 └── README.md
 ```
 
-## Getting Started
-
-```bash
-# 1. Install dependencies
-npm install
-
-# 2. Start development server
-npm run dev
-# Open http://localhost:3000
-
-# 3. Build for production (static export)
-npm run build
-# Output goes to ./out/ folder — ready to deploy anywhere
-```
-
-## Deployment
-
-### Vercel (Recommended)
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-### GitHub Pages
-```bash
-# next.config.js already has output: 'export'
-npm run build
-# Push ./out/ folder to gh-pages branch
-```
-
-### Netlify
-Drag and drop the `./out/` folder after `npm run build`.
-
 ## Customization Guide
 
 All content lives in `app/data/portfolioData.js`. Update these objects:
@@ -109,13 +76,6 @@ Replace the code icon in `HeroSection.jsx` with your actual image:
   height={120}
   style={{ border: '3px solid #1a1a2e', boxShadow: '6px 6px 0px rgba(26,26,46,0.3)' }}
 />
-```
-
-### Update College Name
-In `portfolioData.js`, change:
-```js
-college: "Your Actual College Name",
-note: "", // remove the placeholder note
 ```
 
 ## Design Tokens (CSS Variables)
@@ -155,7 +115,5 @@ All styling uses CSS custom properties in `globals.css`:
 - Safari 14+
 - Edge 90+
 
-## License
-
-MIT — Built with ❤️ by Kunal Yelgate
+Built with ❤️ by Kunal Yelgate
 # my_profile
