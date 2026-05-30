@@ -128,8 +128,8 @@ export const projects: Project[] = [
     description:
       "A personal portfolio site built with Next.js 13, App Router, and modern CSS. The site demonstrates responsive layouts, reusable components, and deployable artifacts with CI/CD.",
     techStack: ["Next.js", "React", "CSS","Typescript","Node.js"],
-    github: "https://github.com/kunal-yelgate/kunal-portfolio-nextjs",
-    liveDemo: "https://kunal-portfolio.example.com",
+    github: "https://github.com/kunal-yelgate/my_profile",
+    liveDemo: "https://my-profile-three-roan.vercel.app/",
   },
   {
     id: 5,
