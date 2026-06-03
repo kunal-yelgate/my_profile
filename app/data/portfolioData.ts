@@ -37,7 +37,7 @@ export const personalInfo: PersonalInfo = {
   github: "https://github.com/kunal-yelgate",
   linkedin: "https://linkedin.com/in/kunal-yelgate",
   resume: "https://drive.google.com/file/d/1Bk3MUgU-4CZukAPjR8-FPbdX_pJ3i0Ls/view?usp=drive_link",
-  openTo: "Internships & Collaborations",
+  openTo: "Open To Collaborations",
 }
 
 export const heroContent = {
