@@ -72,7 +72,7 @@ export default function ContactSection() {
           </div>
 
           <a href={personalInfo.resume} target="_blank" rel="noopener noreferrer" className="pixel-card resume-card">
-            <Download size={20} color="#1a1a2e" />
+            <Download size={20} color="#fff" />
             <span>DOWNLOAD RESUME / QUEST LOG</span>
           </a>
         </div>
@@ -94,7 +94,7 @@ export default function ContactSection() {
         .contact-form { display:flex; flex-direction:column; gap:16px }
         .form-input { padding:8px; border:2px solid #dcdcdc; border-radius:4px }
         .submit-btn { width:100%; margin-top:8px }
-        .resume-card { padding:20px; display:flex; align-items:center; justify-content:center; gap:12px; text-decoration:none; background:#fef9c3 }
+        .resume-card { padding:20px; display:flex; align-items:center; justify-content:center; gap:12px; text-decoration:none; background:#ff9500; color:#fff }
       `}</style>
     </section>
   )

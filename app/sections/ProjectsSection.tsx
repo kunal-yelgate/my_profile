@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { ExternalLink, Github, Sword } from '../components/Icons'
 import { projects as projectsData } from '../data/portfolioData'
 
@@ -12,26 +12,20 @@ const difficultyMap: Record<string, { level: string; color: string; bg: string }
 
 export default function ProjectsSection() {
   const sliderRef = useRef<HTMLDivElement | null>(null)
-  const [paused, setPaused] = useState(false)
 
-  useEffect(() => {
-    let timer: ReturnType<typeof setInterval> | null = null
-    if (!paused) {
-      timer = setInterval(() => {
-        const el = sliderRef.current
-        if (!el) return
-        const child = el.children[0] as HTMLElement | undefined
-        const cardWidth = child ? child.offsetWidth + 20 : el.clientWidth
-        const maxScroll = el.scrollWidth - el.clientWidth
-        if (el.scrollLeft < maxScroll) {
-          el.scrollTo({ left: Math.min(el.scrollLeft + cardWidth, maxScroll), behavior: 'smooth' })
-        } else {
-          el.scrollTo({ left: 0, behavior: 'smooth' })
-        }
-      }, 5000)
+  const scroll = (direction: 'left' | 'right') => {
+    const el = sliderRef.current
+    if (!el) return
+    const child = el.children[0] as HTMLElement | undefined
+    const cardWidth = child ? child.offsetWidth + 20 : el.clientWidth
+    const maxScroll = el.scrollWidth - el.clientWidth
+
+    if (direction === 'left') {
+      el.scrollTo({ left: Math.max(el.scrollLeft - cardWidth, 0), behavior: 'smooth' })
+    } else {
+      el.scrollTo({ left: Math.min(el.scrollLeft + cardWidth, maxScroll), behavior: 'smooth' })
     }
-    return () => { if (timer) clearInterval(timer) }
-  }, [paused])
+  }
 
   return (
     <section id="projects" className="section-padding">
@@ -40,15 +34,9 @@ export default function ProjectsSection() {
         <p className="muted">Side projects completed on the journey</p>
 
         <div className="slider-wrap">
-          <button className="slider-btn prev" onClick={() => {
-            const el = sliderRef.current
-            if (!el) return
-            const child = el.children[0] as HTMLElement | undefined
-            const cardWidth = child ? child.offsetWidth + 20 : el.clientWidth
-            el.scrollTo({ left: Math.max(el.scrollLeft - cardWidth, 0), behavior: 'smooth' })
-          }} aria-label="Previous">‹</button>
+          <button className="slider-btn prev" onClick={() => scroll('left')} aria-label="Previous">‹</button>
 
-          <div className="projects-slider" ref={sliderRef} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+          <div className="projects-slider" ref={sliderRef}>
             {projectsData.map((project) => {
               const diff = difficultyMap[project.title] || { level: 'MEDIUM', color: '#eab308', bg: '#fef9c3' }
               const difficultyClass = project.title === 'ContactApp' ? 'easy' : project.title === 'White Board' ? 'medium' : project.title === 'Taskflow Automation' ? 'hard' : 'medium'
@@ -103,21 +91,17 @@ export default function ProjectsSection() {
             })}
           </div>
 
-          <button className="slider-btn next" onClick={() => {
-            const el = sliderRef.current
-            if (!el) return
-            const child = el.children[0] as HTMLElement | undefined
-            const cardWidth = child ? child.offsetWidth + 20 : el.clientWidth
-            const maxScroll = el.scrollWidth - el.clientWidth
-            el.scrollTo({ left: Math.min(el.scrollLeft + cardWidth, maxScroll), behavior: 'smooth' })
-          }} aria-label="Next">›</button>
+          <button className="slider-btn next" onClick={() => scroll('right')} aria-label="Next">›</button>
         </div>
       </div>
 
       <style jsx>{`
         .muted { text-align:center; color:var(--text-muted); margin-bottom:28px; font-family:var(--font-mono) }
-        .slider-wrap { max-width:1100px; margin:0 auto; position:relative }
-        .projects-slider { display:flex; gap:20px; overflow:hidden; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding:8px 0 }
+        .slider-wrap { max-width:1100px; margin:0 auto; position:relative; padding:0 50px }
+        .projects-slider { display:flex; gap:20px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding:8px 0; scrollbar-width:none }
+        .projects-slider::-webkit-scrollbar { display:none }
+        .projects-slider::-webkit-scrollbar-track { display:none }
+        .projects-slider::-webkit-scrollbar-thumb { display:none }
         .projects-slider > .proj-card { scroll-snap-align:center; flex:0 0 320px }
         .proj-card { padding:24px; border-radius:var(--radius); transition:transform 220ms ease, box-shadow 220ms ease }
         .proj-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:10px }
@@ -133,15 +117,55 @@ export default function ProjectsSection() {
         .tech .tag-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0 }
         .tech .tech-name { display:inline-block }
         .actions { display:flex; gap:8px }
-        .btn { display:inline-flex; gap:6px; align-items:center; padding:6px 12px; border:2px solid; text-decoration:none; font-family:var(--font-mono); font-size:0.7rem; font-weight:600; color:#fff; border-radius:0 }
+        .btn { display:inline-flex; gap:6px; align-items:center; padding:6px 12px; border:2px solid; text-decoration:none; font-family:var(--font-mono); font-size:0.7rem; font-weight:600; color:#fff; border-radius:0; cursor:pointer; transition:all 220ms ease }
         .btn.code { background:#1a1a2e; color:#fff }
         .btn.live { color:#fff }
+        .btn:hover { transform:translateY(-2px); box-shadow:0 4px 8px rgba(0,0,0,0.1) }
 
-        .slider-btn { position:absolute; top:50%; transform:translateY(-50%); background:var(--bg-card); border:2px solid var(--border-color); width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; cursor:pointer; z-index:10 }
-        .slider-btn.prev { left:-10px }
-        .slider-btn.next { right:-10px }
+        .slider-btn { position:absolute; top:50%; transform:translateY(-50%); background:var(--bg-card); border:2px solid var(--border-color); width:42px; height:42px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; cursor:pointer; z-index:10; transition:all 220ms ease }
+        .slider-btn:hover { background:var(--border-color); transform:translateY(-50%) scale(1.1) }
+        .slider-btn.prev { left:0 }
+        .slider-btn.next { right:0 }
 
-        @media (max-width:768px) { .projects-slider > .proj-card { flex:0 0 88%; } .slider-btn { display:none } }
+        @media (max-width:1024px) {
+          .slider-wrap { padding:0 45px }
+          .projects-slider > .proj-card { flex:0 0 280px }
+        }
+
+        @media (max-width:768px) {
+          .slider-wrap { padding:0 40px; margin-bottom:20px }
+          .projects-slider { gap:16px }
+          .projects-slider > .proj-card { flex:0 0 calc(100vw - 100px) }
+          .slider-btn { width:36px; height:36px; font-size:1.2rem }
+          .proj-card { padding:20px }
+          .proj-title { font-size:0.65rem }
+          .proj-tagline { font-size:0.65rem }
+          .proj-desc { font-size:0.8rem }
+          .badge { font-size:0.55rem; padding:5px 8px }
+          .tech { font-size:0.65rem; padding:3px 8px }
+          .btn { font-size:0.65rem; padding:5px 10px }
+        }
+
+        @media (max-width:480px) {
+          .slider-wrap { padding:0 32px }
+          .projects-slider { gap:12px }
+          .projects-slider > .proj-card { flex:0 0 calc(100vw - 74px) }
+          .slider-btn { width:32px; height:32px; font-size:1rem; opacity:0.8 }
+          .slider-btn:hover { opacity:1; transform:translateY(-50%) scale(1.05) }
+          .proj-card { padding:16px; border-radius:4px }
+          .proj-head { margin-bottom:10px; gap:8px }
+          .left { gap:10px }
+          .icon { width:36px; height:36px }
+          .proj-info { flex:1 }
+          .proj-title { font-size:0.6rem }
+          .proj-tagline { font-size:0.6rem; line-height:1.2 }
+          .badge { font-size:0.5rem; padding:4px 6px }
+          .proj-desc { font-size:0.75rem; margin-bottom:10px; line-height:1.4 }
+          .techs { gap:4px; margin-bottom:10px }
+          .tech { font-size:0.6rem; padding:3px 6px; gap:4px }
+          .actions { gap:6px }
+          .btn { font-size:0.6rem; padding:4px 8px; gap:4px }
+        }
       `}</style>
     </section>
   )

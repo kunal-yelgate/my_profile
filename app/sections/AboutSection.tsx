@@ -34,7 +34,7 @@ export default function AboutSection() {
         .about-wrapper { max-width: 900px; margin: 0 auto; display:flex; justify-content:center }
         .about-card { padding:24px; background:#dbeafe; border-radius:var(--radius); max-width:900px }
         .about-head { display:flex; align-items:center; gap:10px; margin-bottom:16px }
-        .about-icon { width:36px; height:36px; display:flex; align-items:center; justify-content:center; background:#3b82f6; border:2px solid #1a1a2e }
+        .about-icon { width:36px; height:36px; display:flex; align-items:center; justify-content:center; background:#3b82f6; border:2px solid #1a1a2e; flex-shrink:0 }
         .about-title { font-family:var(--font-pixel); font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#1a1a2e }
         .about-content { }
         .bio { font-family:var(--font-mono); font-style:italic; color:var(--text-secondary); margin:0 0 12px 0; font-size:0.95rem }
@@ -48,7 +48,23 @@ export default function AboutSection() {
 
         @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
 
-        @media (max-width:768px) { .about-card { padding:20px } .about-icon { margin:0 auto } }
+        @media (max-width:768px) {
+          .about-card { padding:20px }
+          .about-head { gap:8px; margin-bottom:14px }
+          .about-icon { width:32px; height:32px }
+          .about-title { font-size:0.65rem }
+          .bio { font-size:0.85rem }
+          .about-paragraph { font-size:0.85rem; margin-bottom:10px }
+        }
+
+        @media (max-width:480px) {
+          .about-card { padding:16px }
+          .about-head { gap:8px; margin-bottom:12px }
+          .about-icon { width:28px; height:28px }
+          .about-title { font-size:0.6rem }
+          .bio { font-size:0.8rem }
+          .about-paragraph { font-size:0.8rem; margin-bottom:8px; line-height:1.6 }
+        }
       `}</style>
     </section>
   )
