@@ -133,6 +133,16 @@ export const projects: Project[] = [
   },
   {
     id: 5,
+    title: "ResumeAI Evaluator",
+    tagline: "AI-powered resume analysis and evaluation platform",
+    description:
+      "An intelligent resume evaluation system that analyzes resumes, extracts relevant information, evaluates skills and experience, and provides insights to help improve candidate profiles using AI and NLP techniques.",
+    techStack: ["Python", "Machine Learning", "NLP", "Flask", "AI"],
+    github: "https://github.com/kunal-yelgate/ResumeAI_Evaluator",
+    liveDemo: "https://resumeai-evaluator-1.onrender.com/",
+  },
+  {
+    id: 6,
     title: "GitHUB Repo Analyzer",
     tagline: "Small-scale ML experiments and deployments",
     description:
