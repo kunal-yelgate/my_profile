@@ -152,7 +152,7 @@ export const projects: Project[] = [
     liveDemo: "https://githubai-anly.vercel.app/",
   },
   {
-     id: 6,
+     id: 7,
     title: "fake-recruitment-verifier",
     tagline: "Get a risk score backed by live search evidence, not just text-pattern matching.",
     description:
