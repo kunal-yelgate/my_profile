@@ -148,9 +148,19 @@ export const projects: Project[] = [
     description:
       "it is a Collection of small machine learning experiments, model training notebooks, and simple Flask-based deployments showcasing pipelines for data preprocessing and model serving.",
     techStack: ["Python", "scikit-learn", "Flask"],
-    github: "https://github.com/kunal-yelgate/MiniML",
-    liveDemo: null,
+    github: "https://github.com/kunal-yelgate/GithubAI",
+    liveDemo: "https://githubai-anly.vercel.app/",
   },
+  {
+     id: 6,
+    title: "fake-recruitment-verifier",
+    tagline: "Get a risk score backed by live search evidence, not just text-pattern matching.",
+    description:
+      "Fake Recruitment Verifier helps a candidate review a job posting or recruiter message before replying.",
+    techStack: ["Python", "Javascript", "RestAPI"],
+    github: "https://github.com/kunal-yelgate/fake-recruitment-verifier",
+    liveDemo: "https://truerecruit.netlify.app/",
+  }
 ]
 
 export const education: Education[] = [
